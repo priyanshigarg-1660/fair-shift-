@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#421B3F">
+  <title>FairShift — Fair work. Safer workplaces.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root{--plum:#421B3F;--plum-dark:#2D122B;--peri:#A5A9F5;--peri-light:#E9E9FF;--white:#fff;--surface:#F8F7FC;--border:#E5E0ED;--text:#28232D;--muted:#746D7B}
+    *{box-sizing:border-box} body{margin:0;background:var(--surface);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    button,input,select,textarea{font:inherit} button{cursor:pointer}
+    .app-shell{min-height:100vh}.sidebar{background:var(--plum);color:white;width:248px;flex-shrink:0}.brand-mark{width:38px;height:38px;background:var(--peri);color:var(--plum);border-radius:12px;display:grid;place-items:center;font-weight:900}
+    .nav-btn{width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:11px 12px;border-radius:12px;color:#eee7f0;transition:.15s}.nav-btn:hover,.nav-btn.active{background:rgba(165,169,245,.22);color:white}.nav-btn.active{box-shadow:inset 3px 0 var(--peri)}
+    .primary{background:var(--plum);color:white;border-radius:11px;padding:10px 14px;font-weight:650;display:inline-flex;align-items:center;justify-content:center;gap:8px}.primary:hover{background:var(--plum-dark)}.secondary{background:var(--peri-light);color:var(--plum);border:1px solid #d4d5fa;border-radius:11px;padding:9px 13px;font-weight:600}.ghost{border:1px solid var(--border);background:white;border-radius:10px;padding:8px 11px}.card{background:white;border:1px solid var(--border);border-radius:18px;padding:19px;box-shadow:0 3px 14px rgba(45,18,43,.035)}.muted{color:var(--muted)}.pill{display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:700;background:#efedf3;color:#554b5b}.pill.plum{background:#f1e6f0;color:var(--plum)}.pill.peri{background:var(--peri-light);color:var(--plum)}.pill.green{background:#e1f5e8;color:#17623a}.pill.amber{background:#fff0cf;color:#805500}.pill.red{background:#ffe5e6;color:#9a2730}.field{width:100%;border:1px solid var(--border);border-radius:10px;padding:10px 12px;background:white;color:var(--text);outline:none}.field:focus{border-color:#8b8de8;box-shadow:0 0 0 3px rgba(165,169,245,.25)}label{display:block;font-size:13px;font-weight:650;margin-bottom:6px}.stat-value{font-size:26px;font-weight:800;letter-spacing:-.7px}.section-title{font-size:19px;font-weight:800;letter-spacing:-.35px}.sub-title{font-size:14px;font-weight:750}.icon-box{width:40px;height:40px;border-radius:12px;background:var(--peri-light);color:var(--plum);display:grid;place-items:center;flex-shrink:0}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:13px}th{text-align:left;color:var(--muted);font-weight:650;background:#faf9fc}th,td{padding:12px;border-bottom:1px solid #eeeaf3;vertical-align:top}tr:last-child td{border-bottom:0}.mobile-only{display:none}.toast{position:fixed;right:20px;bottom:20px;z-index:80;max-width:min(360px,calc(100vw - 40px));background:var(--plum);color:white;padding:13px 16px;border-radius:12px;box-shadow:0 12px 35px #2d122b33}.modal-backdrop{position:fixed;inset:0;background:#1c1020a6;z-index:60;display:grid;place-items:center;padding:16px}.modal{background:white;border-radius:18px;padding:22px;width:min(520px,100%);max-height:90vh;overflow:auto}.chart-bar{height:9px;border-radius:99px;background:#eeeaf3;overflow:hidden}.chart-bar span{display:block;height:100%;border-radius:99px;background:var(--peri)}.safe-text{overflow-wrap:anywhere}
+    @media(max-width:900px){.sidebar{width:215px}.stat-value{font-size:23px}}
+    @media(max-width:720px){.sidebar{display:none;position:fixed;z-index:50;inset:0 auto 0 0;width:270px;box-shadow:12px 0 30px #21102530}.sidebar.open{display:block}.mobile-only{display:inline-flex}.main-area{min-width:0}.topbar{padding:14px!important}.content{padding:16px!important}.grid-cards{grid-template-columns:repeat(2,minmax(0,1fr))!important}.header-actions{gap:6px!important}.header-actions .role-label{display:none}.card{padding:15px}.hide-mobile{display:none}}
+    @media(max-width:430px){.grid-cards{grid-template-columns:1fr!important}.stat-value{font-size:25px}.topbar h1{font-size:17px}}
+  </style>
+</head>
+<body>
+<div id="app" class="app-shell flex">
+  <aside id="sidebar" class="sidebar min-h-screen p-5 flex flex-col">
+    <div class="flex items-center gap-3 mb-8">
+      <div class="brand-mark">F</div><div><div class="font-extrabold text-lg tracking-tight">FairShift</div><div class="text-xs text-purple-200">Decent work, by design</div></div>
+    </div>
+    <div class="text-[10px] tracking-[.18em] uppercase text-purple-200 font-bold mb-3">Workspace</div>
+    <nav id="nav" class="space-y-1"></nav>
+    <div class="mt-auto pt-6">
+      <div class="rounded-2xl p-4 mb-4" style="background:#ffffff12;border:1px solid #ffffff20">
+        <div class="flex items-center gap-2 text-sm font-bold"><i data-lucide="shield-check" class="w-4 h-4" style="color:var(--peri)"></i> Worker-first design</div>
+        <p class="text-xs text-purple-100 leading-relaxed mt-2">Fair pay, safer shifts, and a voice at work.</p>
+      </div>
+      <div class="text-xs text-purple-200">Prototype · Local demo data</div>
+    </div>
+  </aside>
+  <div id="sidebarShade" class="hidden fixed inset-0 bg-black/40 z-40" onclick="closeMenu()"></div>
+  <main class="main-area flex-1 min-w-0">
+    <header class="topbar sticky top-0 z-30 bg-white/95 backdrop-blur border-b px-6 py-4 flex items-center justify-between gap-4" style="border-color:var(--border)">
+      <div class="flex items-center gap-3 min-w-0">
+        <button class="ghost mobile-only" aria-label="Open menu" onclick="toggleMenu()"><i data-lucide="menu"></i></button>
+        <div class="min-w-0"><div class="text-xs muted font-semibold">FAIRSHIFT / <span id="crumb">DASHBOARD</span></div><h1 id="pageTitle" class="text-xl font-extrabold tracking-tight">Worker dashboard</h1></div>
+      </div>
+      <div class="header-actions flex items-center gap-3">
+        <span class="pill peri hide-mobile"><span class="w-2 h-2 rounded-full mr-2" style="background:var(--plum)"></span>Demo mode</span>
+        <select id="language" class="field !w-auto !py-2 text-sm" aria-label="Language" onchange="setLanguage(this.value)"><option value="en">English</option><option value="hi">हिन्दी</option><option value="ta">தமிழ்</option></select>
+        <select id="role" class="field !w-auto !py-2 text-sm" aria-label="Switch role" onchange="setRole(this.value)"><option value="worker">Worker View</option><option value="employer">Employer / HOD</option></select>
+      </div>
+    </header>
+    <div class="content p-6 max-w-[1500px] mx-auto" id="content"></div>
+    <footer class="px-6 pb-6 text-xs muted">FairShift · SDG 8 · Prototype only. Data stays in this browser and is not a secure multi-user system.</footer>
+  </main>
+</div>
+<div id="modalRoot"></div><div id="toastRoot" aria-live="polite"></div>
+
+<script>
+"use strict";
+const STORAGE_KEY = "fairshift-demo-v1";
+const CSS = getComputedStyle(document.documentElement);
+const navItems = [
+  {id:"dashboard",icon:"layout-dashboard",label:{en:"Dashboard",hi:"डैशबोर्ड",ta:"முகப்பு"}},
+  {id:"attendance",icon:"clock-3",label:{en:"Attendance & Shifts",hi:"उपस्थिति और शिफ्ट",ta:"வருகை மற்றும் பணி"}},
+  {id:"fairpay",icon:"wallet",label:{en:"FairPay",hi:"उचित वेतन",ta:"நியாய ஊதியம்"}},
+  {id:"safevoice",icon:"message-circle-warning",label:{en:"SafeVoice",hi:"सुरक्षा रिपोर्ट",ta:"பாதுகாப்பு புகார்"}},
+  {id:"shiftguard",icon:"heart-pulse",label:{en:"ShiftGuard",hi:"शिफ्ट सुरक्षा",ta:"பணி பாதுகாப்பு"}},
+  {id:"skills",icon:"graduation-cap",label:{en:"Skills & Opportunities",hi:"कौशल और अवसर",ta:"திறன்கள் மற்றும் வாய்ப்புகள்"}},
+  {id:"settings",icon:"settings",label:{en:"Settings",hi:"सेटिंग्स",ta:"அமைப்புகள்"}}
+];
+const T = {
+ en:{welcome:"Good morning",workerDash:"Worker dashboard",employerDash:"Employer overview",worker:"Worker",employer:"Employer / HOD",hours:"Hours worked",earnings:"Estimated earnings",openReports:"Open reports",shift:"Current shift",checkin:"Check in",checkout:"Check out",active:"On shift",off:"Off shift",today:"Today's snapshot",quick:"Quick actions",reportHazard:"Report a hazard",wageIssue:"Report a wage issue",history:"Recent activity",attendance:"Attendance & Shifts",fairpay:"FairPay",safevoice:"SafeVoice",shiftguard:"ShiftGuard",skills:"Skills & Opportunities",settings:"Settings",workersOn:"Workers on shift",pendingWages:"Pending wage disputes",openSafety:"Open safety reports",fatigue:"Fatigue alerts",review:"Review queue",recentReports:"Recent reports",newReport:"New report",submit:"Submit report",category:"Hazard category",description:"Describe what happened",anonymous:"Submit anonymously",name:"Your name",site:"Worksite",language:"Report language",status:"Status",reference:"Reference",regular:"Regular pay",overtime:"Overtime pay",deductions:"Deductions",net:"Estimated net pay",baseRate:"Base hourly rate (₹)",otRate:"Overtime multiplier",threshold:"Daily hours fatigue threshold",save:"Save settings",reset:"Reset demo data",cancel:"Cancel",resolve:"Resolve",escalate:"Escalate",note:"Resolution / internal note",decision:"Decision",reason:"Reason for dispute",amount:"Amount in dispute (₹)",submitDispute:"Submit wage dispute",gps:"Location check",gpsCheck:"Check my location",gpsWait:"Checking location…",gpsNone:"Location not checked",qr:"Simulate QR check-in",simulate:"Simulate GPS state",industry:"Industry",construction:"Construction",maintenance:"Facility maintenance",noItems:"Nothing to show here yet.",assigned:"Assigned",reviewing:"Under review",resolved:"Resolved",escalated:"Escalated",pending:"Pending",anonymousNote:"Anonymous reports hide worker identity in this prototype. This local demo cannot guarantee real-world anonymity.",prototype:"Prototype: browser storage only; not a secure multi-user system.",skillPassport:"Skill passport",opportunities:"Sample opportunities",activeAlerts:"Active alerts",shiftHistory:"Shift history",noShift:"No active shift",gpsVerified:"Within site radius",gpsOutside:"Outside site radius",gpsAccuracy:"Accuracy is too low",gpsDenied:"Permission denied or unavailable",all:"All",filterStatus:"Filter by status",search:"Search reports",internal:"Internal note",resolution:"Resolution summary",voice:"Use speech-to-text",voiceUnavailable:"Speech recognition is unavailable in this browser. Please type your report.",dispute:"Wage dispute",safety:"Safety report",checkinDone:"Checked in successfully.",checkoutDone:"Checked out successfully.",saved:"Saved successfully.",submitted:"Submitted successfully.",noRest:"Review rest time and schedule a safer shift.",noFatigue:"No fatigue alerts based on current demo records.",resetConfirm:"Reset all FairShift demo data in this browser? This cannot be undone.",resetDone:"Demo data reset.",dashboard:"Dashboard",overdue:"Overdue reports",attendanceDiscrepancy:"Attendance discrepancies",insights:"Workforce insights",hoursUnit:"hours",reportStatus:"Report status",allStatus:"All statuses",selectCategory:"Select a category",ppe:"Missing protective equipment",scaffold:"Unsafe scaffolding",equipment:"Equipment fault",chemical:"Chemical-handling concern",other:"Other workplace hazard",payError:"Missing overtime pay",wrongHours:"Incorrect hours",otherWage:"Other wage issue",workerProfile:"Worker profile",demoHint:"Use the role switcher above to explore both views.",industryHint:"Changing industry updates sample context and report categories."},
+ hi:{workerDash:"कर्मचारी डैशबोर्ड",employerDash:"नियोक्ता अवलोकन",hours:"काम के घंटे",earnings:"अनुमानित कमाई",openReports:"खुली रिपोर्ट",shift:"वर्तमान शिफ्ट",checkin:"चेक इन",checkout:"चेक आउट",active:"काम पर",off:"शिफ्ट समाप्त",today:"आज का सारांश",quick:"त्वरित कार्रवाई",reportHazard:"खतरे की रिपोर्ट करें",wageIssue:"वेतन समस्या रिपोर्ट करें",history:"हाल की गतिविधि",attendance:"उपस्थिति और शिफ्ट",fairpay:"उचित वेतन",safevoice:"सुरक्षा रिपोर्ट",shiftguard:"शिफ्ट सुरक्षा",skills:"कौशल और अवसर",settings:"सेटिंग्स",submit:"रिपोर्ट भेजें",category:"खतरे की श्रेणी",description:"क्या हुआ, बताएं",anonymous:"गुमनाम रूप से भेजें",status:"स्थिति",reference:"संदर्भ",regular:"नियमित वेतन",overtime:"ओवरटाइम वेतन",deductions:"कटौती",net:"अनुमानित शुद्ध वेतन",save:"सेटिंग्स सहेजें",reset:"डेमो डेटा रीसेट करें",cancel:"रद्द करें",resolve:"समाधान करें",escalate:"आगे बढ़ाएं",pending:"लंबित",resolved:"समाधान हुआ",all:"सभी",noItems:"अभी कुछ नहीं है।",prototype:"प्रोटोटाइप: केवल ब्राउज़र स्टोरेज; सुरक्षित मल्टी-यूज़र सिस्टम नहीं।",anonymousNote:"इस प्रोटोटाइप में गुमनाम रिपोर्ट में कर्मचारी की पहचान छिपती है। वास्तविक दुनिया की गुमनामी की गारंटी नहीं है।",reportStatus:"रिपोर्ट स्थिति",workerProfile:"कर्मचारी प्रोफ़ाइल",hoursUnit:"घंटे"},
+ ta:{workerDash:"பணியாளர் முகப்பு",employerDash:"நிர்வாகக் கண்ணோட்டம்",hours:"வேலை நேரம்",earnings:"மதிப்பிடப்பட்ட வருமானம்",openReports:"திறந்த புகார்கள்",shift:"தற்போதைய பணி",checkin:"வருகைப் பதிவு",checkout:"வெளியேறும் பதிவு",active:"பணியில்",off:"பணி முடிந்தது",today:"இன்றைய சுருக்கம்",quick:"விரைவு செயல்கள்",reportHazard:"ஆபத்தைப் புகாரளி",wageIssue:"ஊதியப் பிரச்சினை",history:"சமீபத்திய செயல்பாடு",attendance:"வருகை மற்றும் பணி",fairpay:"நியாய ஊதியம்",safevoice:"பாதுகாப்புப் புகார்",shiftguard:"பணி பாதுகாப்பு",skills:"திறன்கள் மற்றும் வாய்ப்புகள்",settings:"அமைப்புகள்",submit:"புகாரைச் சமர்ப்பி",category:"ஆபத்து வகை",description:"என்ன நடந்தது?",anonymous:"அநாமதேயமாகச் சமர்ப்பி",status:"நிலை",reference:"குறிப்பு எண்",regular:"வழக்கமான ஊதியம்",overtime:"கூடுதல் நேர ஊதியம்",deductions:"கழிவுகள்",net:"மதிப்பிடப்பட்ட நிகர ஊதியம்",save:"அமைப்புகளைச் சேமி",reset:"சோதனைத் தரவை மீட்டமை",cancel:"ரத்து",resolve:"தீர்வு செய்",escalate:"மேல்நிலைக்கு அனுப்பு",pending:"நிலுவையில்",resolved:"தீர்க்கப்பட்டது",all:"அனைத்தும்",noItems:"இப்போது எதுவும் இல்லை.",prototype:"முன்மாதிரி: உலாவி சேமிப்பு மட்டும்; பாதுகாப்பான பல-பயனர் அமைப்பு அல்ல.",anonymousNote:"இந்த முன்மாதிரியில் அநாமதேய புகாரில் பணியாளர் அடையாளம் மறைக்கப்படும். நிஜ உலக அநாமதேயத்துக்கு உத்தரவாதம் இல்லை.",reportStatus:"புகார் நிலை",workerProfile:"பணியாளர் விவரம்",hoursUnit:"மணி"}
+};
+const tr = key => (T[state.language] && T[state.language][key]) || (T.en[key]) || key;
+const uid = prefix => `${prefix}-${Math.random().toString(36).slice(2,7).toUpperCase()}-${Date.now().toString(36).slice(-4).toUpperCase()}`;
+const isoNow = () => new Date().toISOString();
+const hoursBetween = (a,b) => Math.max(0,(new Date(b)-new Date(a))/3600000);
+const money = n => new Intl.NumberFormat("en-IN",{style:"currency",currency:"INR",maximumFractionDigits:2}).format(Number(n)||0);
+function seedData(){
+ const now=Date.now(), ago=h=>new Date(now-h*3600000).toISOString();
+ return {
+  role:"worker",page:"dashboard",language:"en",industry:"construction",
+  settings:{baseRate:120,overtimeMultiplier:1.5,dailyHoursThreshold:10,siteRadius:150,siteLat:13.0827,siteLon:80.2707,maxGpsAccuracy:100},
+  workers:[{id:"W-1001",name:"Ramesh Kumar",role:"Site Worker",siteId:"SITE-A",industry:"construction",skills:["Safety basics","Material handling"]},{id:"W-1002",name:"Meena Devi",role:"Maintenance Technician",siteId:"SITE-B",industry:"maintenance",skills:["Equipment inspection","Electrical safety"]},{id:"W-1003",name:"Arun Kumar",role:"Site Supervisor",siteId:"SITE-A",industry:"construction",skills:["First aid","Site coordination"]}],
+  sites:[{id:"SITE-A",name:"Construction Site A",industry:"construction",lat:13.0827,lon:80.2707,radius:150},{id:"SITE-B",name:"Maintenance Facility B",industry:"maintenance",lat:13.0674,lon:80.2376,radius:150}],
+  shifts:[
+   {id:"SH-001",workerId:"W-1001",siteId:"SITE-A",checkIn:ago(12),checkOut:ago(1),gpsStatus:"verified",industry:"construction"},
+   {id:"SH-002",workerId:"W-1002",siteId:"SITE-B",checkIn:ago(26),checkOut:ago(18),gpsStatus:"verified",industry:"maintenance"},
+   {id:"SH-003",workerId:"W-1001",siteId:"SITE-A",checkIn:ago(40),checkOut:ago(29),gpsStatus:"outside",industry:"construction"},
+   {id:"SH-004",workerId:"W-1003",siteId:"SITE-A",checkIn:ago(8),checkOut:null,gpsStatus:"verified",industry:"construction"}
+  ],
+  disputes:[{id:"PAY-2401",workerId:"W-1001",reason:"Missing overtime pay",amount:540,status:"pending",createdAt:ago(6),notes:[],resolution:""}],
+  complaints:[{id:"SAFE-1401",workerId:"W-1002",anonymous:true,category:"Equipment fault",description:"The maintenance cart has a damaged wheel and may tip when loaded.",siteId:"SITE-B",status:"reviewing",createdAt:ago(5),notes:[],resolution:"",assignedTo:"Facility HOD"},{id:"SAFE-1402",workerId:"W-1001",anonymous:false,category:"Missing protective equipment",description:"Replacement protective gloves are needed for the team.",siteId:"SITE-A",status:"pending",createdAt:ago(30),notes:[],resolution:"",assignedTo:""}],
+  alerts:[{id:"ALT-001",workerId:"W-1001",type:"fatigue",message:"Sample shift history exceeds the configured daily-hours threshold.",status:"open",createdAt:ago(4),followUp:""}],
+  activity:[{id:uid("ACT"),text:"Demo workspace initialised",createdAt:isoNow()}],
+  vacancies:[{id:"JOB-1",title:"Junior Site Safety Assistant",industry:"construction",location:"Site A",skills:["Safety basics"],status:"open"},{id:"JOB-2",title:"Facility Maintenance Trainee",industry:"maintenance",location:"Facility B",skills:["Equipment inspection"],status:"open"}],
+  gps:{status:"not_checked",message:"Location not checked",distance:null,accuracy:null},
+  lastReportRef:null
+ };
+}
+let state;
+function loadState(){
+ try{const raw=localStorage.getItem(STORAGE_KEY);if(raw){const parsed=JSON.parse(raw);if(parsed&&parsed.workers&&parsed.shifts)return {...seedData(),...parsed};}}catch(e){console.warn("Could not load saved demo state",e)}
+ return seedData();
+}
+state=loadState();
+function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch(e){toast("Could not save to browser storage. Your browser may be in private mode.");}}
+function activity(text){state.activity.unshift({id:uid("ACT"),text,createdAt:isoNow()});state.activity=state.activity.slice(0,30);}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function fmtDate(d){return d?new Date(d).toLocaleString(state.language==="hi"?"hi-IN":state.language==="ta"?"ta-IN":"en-IN",{dateStyle:"medium",timeStyle:"short"}):"—";}
+function fmtHours(h){return `${Math.floor(h)}h ${Math.round((h%1)*60)}m`;}
+function worker(id="W-1001"){return state.workers.find(w=>w.id===id)||state.workers[0];}
+function currentWorker(){return worker("W-1001");}
+function hoursForShift(s,now=Date.now()){return hoursBetween(s.checkIn,s.checkOut||new Date(now).toISOString());}
+function shiftTotals(workerId="W-1001"){
+ const list=state.shifts.filter(s=>s.workerId===workerId);
+ const regular= list.reduce((sum,s)=>sum+Math.min(hoursForShift(s),8),0);
+ const overtime=list.reduce((sum,s)=>sum+Math.max(0,hoursForShift(s)-8),0);
+ const regularPay=regular*Number(state.settings.baseRate), overtimePay=overtime*Number(state.settings.baseRate)*Number(state.settings.overtimeMultiplier);
+ return {hours:regular+overtime,regular,overtime,regularPay,overtimePay,deductions:0,net:regularPay+overtimePay};
+}
+function allOpenComplaints(){return state.complaints.filter(c=>!["resolved"].includes(c.status));}
+function allPendingDisputes(){return state.disputes.filter(d=>d.status==="pending"||d.status==="reviewing");}
+function currentIndustryLabel(){return state.industry==="construction"?"Construction":"Facility maintenance";}
+function statusPill(status){
+ const map={pending:"amber",reviewing:"peri",resolved:"green",escalated:"red",open:"amber",verified:"green",outside:"red",not_checked:"",low_accuracy:"amber",denied:"red"};
+ return `<span class="pill ${map[status]||""}">${esc(status.replaceAll("_"," ").replace(/\b\w/g,c=>c.toUpperCase()))}</span>`;
+}
+function icon(name,cls="w-5 h-5"){return `<i data-lucide="${esc(name)}" class="${cls}"></i>`;}
+function cardTitle(title,sub=""){return `<div class="mb-4"><div class="section-title">${title}</div>${sub?`<div class="text-sm muted mt-1">${sub}</div>`:""}</div>`;}
+function statCard(label,value,iconName,detail="",tone=""){return `<div class="card"><div class="flex items-start justify-between gap-3"><div class="text-sm muted font-semibold">${label}</div><div class="icon-box">${icon(iconName,"w-5 h-5")}</div></div><div class="stat-value mt-4">${value}</div>${detail?`<div class="text-xs muted mt-2">${detail}</div>`:""}</div>`;}
+function navLabel(item){return (item.label&&item.label[state.language])||tr(item.id);}
+function renderNav(){
+ document.getElementById("nav").innerHTML=navItems.map(item=>`<button class="nav-btn ${state.page===item.id?"active":""}" onclick="go('${item.id}')">${icon(item.icon,"w-[18px] h-[18px]")}<span class="text-sm font-semibold">${esc(navLabel(item))}</span></button>`).join("");
+}
+function setRole(role){state.role=role;state.page="dashboard";save();render();}
+function setLanguage(lang){state.language=lang;save();render();}
+function go(page){state.page=page;closeMenu();render();}
+function toggleMenu(){document.getElementById("sidebar").classList.toggle("open");document.getElementById("sidebarShade").classList.toggle("hidden");}
+function closeMenu(){document.getElementById("sidebar").classList.remove("open");document.getElementById("sidebarShade").classList.add("hidden");}
+function toast(msg){const root=document.getElementById("toastRoot");root.innerHTML=`<div class="toast" role="status">${esc(msg)}</div>`;setTimeout(()=>{root.innerHTML=""},3200);}
+function showModal(title,body,footer=""){
+ document.getElementById("modalRoot").innerHTML=`<div class="modal-backdrop" onclick="if(event.target===this)closeModal()"><section class="modal" role="dialog" aria-modal="true" aria-label="${esc(title)}"><div class="flex items-start justify-between gap-3 mb-5"><h2 class="text-lg font-extrabold">${esc(title)}</h2><button class="ghost !p-2" onclick="closeModal()" aria-label="Close">${icon("x","w-4 h-4")}</button></div>${body}${footer?`<div class="flex justify-end gap-2 mt-5">${footer}</div>`:""}</section></div>`;
+ if(window.lucide)lucide.createIcons();
+}
+function closeModal(){document.getElementById("modalRoot").innerHTML="";}
+function pageHeader(title,subtitle,actions=""){return `<div class="flex flex-wrap items-start justify-between gap-4 mb-6"><div><h2 class="text-2xl font-extrabold tracking-tight">${title}</h2><p class="muted text-sm mt-1">${subtitle}</p></div><div class="flex gap-2 flex-wrap">${actions}</div></div>`;}
+function renderDashboard(){
+ const w=currentWorker(),tot=shiftTotals(),open=allOpenComplaints().filter(c=>c.workerId==="W-1001").length;
+ if(state.role==="worker"){
+  const active=state.shifts.find(s=>s.workerId===w.id&&!s.checkOut);
+  const recent=state.activity.slice(0,4).map(a=>`<div class="flex gap-3 py-3 border-b last:border-0" style="border-color:var(--border)"><div class="icon-box !w-9 !h-9">${icon("activity","w-4 h-4")}</div><div class="min-w-0 flex-1"><div class="text-sm font-semibold">${esc(a.text)}</div><div class="text-xs muted mt-1">${fmtDate(a.createdAt)}</div></div></div>`).join("");
+  return `${pageHeader(`Welcome, ${esc(w.name.split(" ")[0])} 👋`,"Here is your workday at a glance.",`<button class="primary" onclick="openReportModal()">${icon("shield-alert","w-4 h-4")} ${tr("reportHazard")}</button>`)}
+   <div class="rounded-2xl p-5 md:p-6 mb-6 text-white flex flex-wrap items-center justify-between gap-5" style="background:linear-gradient(120deg,var(--plum),#63345f)">
+    <div><div class="text-sm text-purple-100 mb-2">${tr("shift")} · ${esc(w.role)}</div><div class="text-2xl font-extrabold">${active?tr("active"):tr("off")}</div><div class="text-sm text-purple-100 mt-2">${active?`Started ${fmtDate(active.checkIn)} · <span id="liveTimer">${fmtHours(hoursForShift(active))}</span> elapsed`:"You have no active shift right now."}</div></div>
+    <div class="flex gap-2 flex-wrap">${active?`<button class="secondary" onclick="checkOut()">${icon("log-out","w-4 h-4")} ${tr("checkout")}</button>`:`<button class="secondary" onclick="checkIn()">${icon("log-in","w-4 h-4")} ${tr("checkin")}</button>`}<button class="ghost !border-white/20 !bg-white/10 !text-white" onclick="go('attendance')">View shifts</button></div>
+   </div>
+   <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 grid-cards mb-6">${statCard(tr("hours"),fmtHours(tot.hours),"clock-3","Across saved shift records")}${statCard(tr("earnings"),money(tot.net),"wallet","Estimated · before any unrecorded adjustments")}${statCard(tr("openReports"),open,"shield-alert","Your unresolved safety reports")}${statCard(tr("activeAlerts"),state.alerts.filter(a=>a.workerId===w.id&&a.status==="open").length,"heart-pulse","Review alerts without blame")}</div>
+   <div class="grid grid-cols-1 xl:grid-cols-5 gap-5"><section class="card xl:col-span-3">${cardTitle(tr("quick"),"Common tasks, without extra steps.")}<div class="grid grid-cols-1 sm:grid-cols-2 gap-3"><button class="ghost text-left !p-4 flex gap-3 items-center" onclick="go('fairpay')"><div class="icon-box">${icon("wallet")}</div><div><div class="font-bold">Review my pay</div><div class="text-xs muted mt-1">Hours, overtime and estimates</div></div>${icon("chevron-right","w-4 h-4 ml-auto")}</button><button class="ghost text-left !p-4 flex gap-3 items-center" onclick="openDisputeModal()"><div class="icon-box">${icon("file-warning")}</div><div><div class="font-bold">Report wage issue</div><div class="text-xs muted mt-1">Create a trackable dispute</div></div>${icon("chevron-right","w-4 h-4 ml-auto")}</button><button class="ghost text-left !p-4 flex gap-3 items-center" onclick="go('attendance')"><div class="icon-box">${icon("calendar-clock")}</div><div><div class="font-bold">Attendance history</div><div class="text-xs muted mt-1">See recorded shifts</div></div>${icon("chevron-right","w-4 h-4 ml-auto")}</button><button class="ghost text-left !p-4 flex gap-3 items-center" onclick="go('shiftguard')"><div class="icon-box">${icon("heart-pulse")}</div><div><div class="font-bold">Check ShiftGuard</div><div class="text-xs muted mt-1">Review well-being alerts</div></div>${icon("chevron-right","w-4 h-4 ml-auto")}</button></div></section>
+   <section class="card xl:col-span-2">${cardTitle(tr("history"))}${recent||`<p class="muted text-sm">${tr("noItems")}</p>`}</section></div>`;
+ }
+ const onShift=state.shifts.filter(s=>!s.checkOut).length,pending=allPendingDisputes().length,openSafe=allOpenComplaints().length,fatigue=state.alerts.filter(a=>a.status==="open").length;
+ return `${pageHeader("Employer overview","A clear queue of workforce issues that need attention.",`<button class="secondary" onclick="go('safevoice')">${icon("list-checks","w-4 h-4")} Review reports</button>`)}
+ <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 grid-cards mb-6">${statCard("Workers currently on shift",onShift,"users","From saved active shifts")}${statCard("Pending wage disputes",pending,"wallet","Require review")}${statCard("Unresolved safety reports",openSafe,"shield-alert","Review, assign or resolve")}${statCard("Open fatigue alerts",fatigue,"heart-pulse","Consider safe follow-up")}</div>
+ <div class="grid grid-cols-1 xl:grid-cols-2 gap-5 mb-5"><section class="card">${cardTitle("Priority queue","Issues that may need a timely response.")}${renderPriorityQueue()}</section><section class="card">${cardTitle("Workforce insights","Derived from current demo records.")}${renderInsights()}</section></div>
+ <section class="card">${cardTitle("Recent reports","The same records are visible in Worker View.")}${renderCompactComplaints()}</section>`;
+}
+function renderPriorityQueue(){
+ const items=[
+  ...allPendingDisputes().map(d=>({type:"Wage dispute",id:d.id,title:d.reason,sub:`${worker(d.workerId).name} · ${money(d.amount)}`,page:"fairpay",status:d.status})),
+  ...allOpenComplaints().map(c=>({type:"Safety report",id:c.id,title:c.category,sub:`${c.anonymous?"Anonymous worker":worker(c.workerId).name} · ${fmtDate(c.createdAt)}`,page:"safevoice",status:c.status})),
+  ...state.alerts.filter(a=>a.status==="open").map(a=>({type:"ShiftGuard alert",id:a.id,title:a.message,sub:worker(a.workerId).name,page:"shiftguard",status:a.status}))
+ ].slice(0,6);
+ return items.length?items.map(i=>`<button class="w-full text-left flex items-start gap-3 py-3 border-b last:border-0" style="border-color:var(--border)" onclick="go('${i.page}')"><div class="icon-box">${icon(i.type==="Wage dispute"?"wallet":i.type==="Safety report"?"shield-alert":"heart-pulse","w-4 h-4")}</div><div class="min-w-0 flex-1"><div class="font-bold text-sm">${esc(i.title)}</div><div class="text-xs muted mt-1">${esc(i.type)} · ${esc(i.sub)}</div></div>${statusPill(i.status)}</button>`).join(""):`<p class="muted text-sm">${tr("noItems")}</p>`;
+}
+function renderInsights(){
+ const total=state.complaints.length,done=state.complaints.filter(c=>c.status==="resolved").length,wage=state.disputes.length,closed=state.disputes.filter(d=>d.status==="resolved").length;
+ const stats=[["Safety reports resolved",total?Math.round(done/total*100):0],["Wage disputes resolved",wage?Math.round(closed/wage*100):0],["Attendance GPS checks verified",state.shifts.length?Math.round(state.shifts.filter(s=>s.gpsStatus==="verified").length/state.shifts.length*100):0]];
+ return stats.map(([label,pct])=>`<div class="mb-5 last:mb-0"><div class="flex justify-between gap-3 text-sm mb-2"><span class="font-semibold">${label}</span><span class="muted">${pct}%</span></div><div class="chart-bar"><span style="width:${pct}%"></span></div></div>`).join("");
+}
+function renderCompactComplaints(){
+ return state.complaints.length?`<div class="table-wrap"><table><thead><tr><th>Reference</th><th>Category</th><th>Reporter</th><th>Status</th><th></th></tr></thead><tbody>${state.complaints.slice().sort((a,b)=>b.createdAt.localeCompare(a.createdAt)).slice(0,5).map(c=>`<tr><td class="font-bold">${esc(c.id)}</td><td>${esc(c.category)}</td><td>${c.anonymous?'<span class="muted">Anonymous</span>':esc(worker(c.workerId).name)}</td><td>${statusPill(c.status)}</td><td><button class="secondary !py-1.5 !px-2 text-xs" onclick="openComplaint('${c.id}')">Review</button></td></tr>`).join("")}</tbody></table></div>`:`<p class="muted text-sm">${tr("noItems")}</p>`;
+}
+function renderAttendance(){
+ const w=currentWorker(),active=state.shifts.find(s=>s.workerId===w.id&&!s.checkOut),tot=shiftTotals();
+ const rows=state.shifts.filter(s=>state.role==="employer"||s.workerId===w.id).slice().sort((a,b)=>b.checkIn.localeCompare(a.checkIn));
+ return `${pageHeader(tr("attendance"),"Clock shifts, review recorded hours, and understand location status.",state.role==="worker"?`${active?`<button class="primary" onclick="checkOut()">${icon("log-out","w-4 h-4")} ${tr("checkout")}</button>`:`<button class="primary" onclick="checkIn()">${icon("log-in","w-4 h-4")} ${tr("checkin")}</button>`}`:"")}
+ <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5"><section class="card lg:col-span-2">${cardTitle("Location verification","Browser location is optional and requires permission.")}<div class="flex flex-wrap items-center justify-between gap-4"><div class="flex gap-3 items-center"><div class="icon-box">${icon("map-pin")}</div><div><div class="font-bold">${esc(state.gps.message||tr("gpsNone"))}</div><div class="text-xs muted mt-1">${state.gps.distance==null?"Distance not available":`${Math.round(state.gps.distance)} m from configured site`} ${state.gps.accuracy==null?"":`· accuracy ±${Math.round(state.gps.accuracy)} m`}</div></div></div><button class="secondary" onclick="checkGPS()">${icon("locate-fixed","w-4 h-4")} ${tr("gpsCheck")}</button></div><div class="flex flex-wrap gap-2 mt-4"><button class="ghost text-sm" onclick="simulateGPS('verified')">Simulate within radius</button><button class="ghost text-sm" onclick="simulateGPS('outside')">Simulate outside radius</button><button class="ghost text-sm" onclick="simulateGPS('low_accuracy')">Simulate poor accuracy</button><button class="ghost text-sm" onclick="simulateGPS('denied')">Simulate denied</button></div><p class="text-xs muted mt-3">Simulation controls are labelled for testing and do not represent actual location.</p></section>
+ <section class="card">${cardTitle("QR check-in","Prototype simulation only.")}<p class="text-sm muted mb-4">This does not scan or validate a real site QR code.</p><button class="primary w-full" onclick="simulateQR()">${icon("qr-code","w-4 h-4")} ${tr("qr")}</button></section></div>
+ <section class="card">${cardTitle("Shift history","Duration uses saved check-in and check-out timestamps.")}<div class="table-wrap"><table><thead><tr><th>Worker</th><th>Site</th><th>Check in</th><th>Check out</th><th>Duration</th><th>GPS status</th></tr></thead><tbody>${rows.map(s=>`<tr><td class="font-semibold">${esc(worker(s.workerId).name)}</td><td>${esc(siteName(s.siteId))}</td><td>${fmtDate(s.checkIn)}</td><td>${fmtDate(s.checkOut)}</td><td>${fmtHours(hoursForShift(s))}</td><td>${statusPill(s.gpsStatus||"not_checked")}</td></tr>`).join("")}</tbody></table></div></section>`;
+}
+function siteName(id){return state.sites.find(s=>s.id===id)?.name||id||"—";}
+function renderFairPay(){
+ const tot=shiftTotals(),disputes=state.disputes.filter(d=>state.role==="employer"||d.workerId==="W-1001").slice().sort((a,b)=>b.createdAt.localeCompare(a.createdAt));
+ return `${pageHeader(tr("fairpay"),"Understand every component of the wage estimate.",state.role==="worker"?`<button class="primary" onclick="openDisputeModal()">${icon("file-warning","w-4 h-4")} ${tr("submitDispute")}</button>`:"")}
+ <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 grid-cards mb-5">${statCard(tr("regular"),money(tot.regularPay),"wallet",`${tot.regular.toFixed(2)} regular hours × ${money(state.settings.baseRate)}`)}${statCard(tr("overtime"),money(tot.overtimePay),"clock-4",`${tot.overtime.toFixed(2)} overtime hours × ${money(state.settings.baseRate)} × ${state.settings.overtimeMultiplier}`)}${statCard(tr("deductions"),money(tot.deductions),"minus-circle","No deductions recorded")}${statCard(tr("net"),money(tot.net),"banknote","Estimated only; not a payment guarantee")}</div>
+ <section class="card mb-5">${cardTitle("Calculation details","Prototype calculation treats the first 8 hours of each shift as regular hours; configure actual rules before real use.")}<div class="table-wrap"><table><thead><tr><th>Item</th><th>Calculation</th><th>Amount</th></tr></thead><tbody><tr><td>Regular pay</td><td>${tot.regular.toFixed(2)} h × ${money(state.settings.baseRate)}</td><td class="font-bold">${money(tot.regularPay)}</td></tr><tr><td>Overtime pay</td><td>${tot.overtime.toFixed(2)} h × ${money(state.settings.baseRate)} × ${state.settings.overtimeMultiplier}</td><td class="font-bold">${money(tot.overtimePay)}</td></tr><tr><td>Deductions</td><td>None recorded</td><td>${money(0)}</td></tr><tr><td class="font-extrabold">Estimated net</td><td>Regular + overtime − deductions</td><td class="font-extrabold">${money(tot.net)}</td></tr></tbody></table></div></section>
+ <section class="card">${cardTitle(state.role==="worker"?"My wage disputes":"Wage dispute review","Workers can submit a dispute; employer decisions update the same record.")}${disputes.length?`<div class="space-y-3">${disputes.map(d=>`<div class="border rounded-xl p-4" style="border-color:var(--border)"><div class="flex flex-wrap justify-between gap-3"><div><div class="font-bold">${esc(d.id)} · ${esc(d.reason)}</div><div class="text-sm muted mt-1">${esc(worker(d.workerId).name)} · ${fmtDate(d.createdAt)}</div><div class="text-sm mt-2">Amount in dispute: <strong>${money(d.amount)}</strong></div></div><div>${statusPill(d.status)}</div></div>${d.resolution?`<p class="text-sm mt-3 rounded-lg p-3" style="background:var(--surface)"><strong>Resolution:</strong> ${esc(d.resolution)}</p>`:""}${state.role==="employer"&&d.status!=="resolved"?`<div class="flex gap-2 flex-wrap mt-3"><button class="secondary" onclick="reviewDispute('${d.id}')">Review / decide</button></div>`:""}</div>`).join("")}</div>`:`<p class="muted text-sm">${tr("noItems")}</p>`}</section>`;
+}
+function openDisputeModal(){
+ showModal("Submit a wage dispute",`<form id="disputeForm" class="space-y-4"><div><label for="disputeReason">Reason</label><select class="field" name="reason" id="disputeReason"><option>Missing overtime pay</option><option>Incorrect hours</option><option>Incorrect rate</option><option>Other wage issue</option></select></div><div><label for="disputeAmount">Amount in dispute (₹)</label><input class="field" type="number" min="0" step=".01" id="disputeAmount" name="amount" required placeholder="e.g. 540"></div><div><label for="disputeDetails">Details</label><textarea class="field" name="details" rows="3" maxlength="1000" placeholder="Which shift or hours should be reviewed?"></textarea></div><p class="text-xs muted">This demo creates a local record. It does not contact payroll.</p><button class="primary w-full" type="submit">${tr("submitDispute")}</button></form>`);
+ document.getElementById("disputeForm").addEventListener("submit",e=>{e.preventDefault();const fd=new FormData(e.currentTarget),amount=Number(fd.get("amount"));if(!Number.isFinite(amount)||amount<=0){toast("Enter an amount greater than zero.");return;}const d={id:uid("PAY"),workerId:"W-1001",reason:String(fd.get("reason"))+(fd.get("details")?": "+String(fd.get("details")).trim():""),amount,status:"pending",createdAt:isoNow(),notes:[],resolution:""};state.disputes.unshift(d);activity(`Wage dispute ${d.id} submitted`);save();closeModal();render();toast(`Dispute submitted · ${d.id}`);});
+}
+function reviewDispute(id){
+ const d=state.disputes.find(x=>x.id===id);if(!d)return;
+ showModal("Review wage dispute",`<div class="space-y-3"><div class="rounded-xl p-4" style="background:var(--surface)"><div class="text-xs muted">Reference</div><div class="font-extrabold">${esc(d.id)}</div><div class="text-sm mt-2">${esc(d.reason)}</div><div class="font-bold mt-2">${money(d.amount)}</div></div><form id="reviewDisputeForm" class="space-y-3"><div><label for="decision">Decision</label><select class="field" id="decision" name="decision"><option value="reviewing">Keep under review</option><option value="resolved">Resolved / decision recorded</option><option value="escalated">Escalate for further review</option></select></div><div><label for="resolution">Resolution note</label><textarea class="field" name="resolution" id="resolution" rows="3" required maxlength="1000" placeholder="Explain the review outcome"></textarea></div><button class="primary w-full" type="submit">Save decision</button></form></div>`);
+ document.getElementById("reviewDisputeForm").addEventListener("submit",e=>{e.preventDefault();const fd=new FormData(e.currentTarget);d.status=String(fd.get("decision"));d.resolution=String(fd.get("resolution")).trim();activity(`Employer updated wage dispute ${d.id} to ${d.status}`);save();closeModal();render();toast("Wage dispute updated.");});
+}
+function categories(){return state.industry==="construction"?["Unsafe scaffolding","Missing protective equipment","Unsafe lifting / materials","Other workplace hazard"]:["Equipment fault","Chemical-handling concern","Electrical hazard","Other workplace hazard"];}
+function openReportModal(){
+ const cats=categories();
+ showModal("SafeVoice · New safety report",`<form id="reportForm" class="space-y-4"><div><label for="reportCategory">${tr("category")}</label><select class="field" name="category" id="reportCategory">${cats.map(c=>`<option>${esc(c)}</option>`).join("")}</select></div><div><label for="reportDesc">${tr("description")}</label><textarea class="field" id="reportDesc" name="description" rows="4" maxlength="1500" required placeholder="Share what happened and where, without adding unnecessary personal details."></textarea><div class="flex justify-between items-center gap-2 mt-2"><span class="text-xs muted">Do not include sensitive personal information.</span><button class="secondary !text-xs !py-1.5" type="button" onclick="startSpeech('reportDesc')">${icon("mic","w-3 h-3")} ${tr("voice")}</button></div></div><div><label for="reportLang">${tr("language")}</label><select class="field" id="reportLang" name="language"><option>English</option><option>Hindi</option><option>Tamil</option></select></div><label class="flex items-start gap-3 !font-normal"><input type="checkbox" name="anonymous" checked class="mt-1"><span><span class="font-bold">Submit anonymously</span><span class="block text-xs muted mt-1">${tr("anonymousNote")}</span></span></label><button class="primary w-full" type="submit">${tr("submit")}</button></form>`);
+ document.getElementById("reportForm").addEventListener("submit",e=>{e.preventDefault();const fd=new FormData(e.currentTarget),desc=String(fd.get("description")).trim();if(!desc){toast("Please describe the hazard.");return;}const anonymous=fd.get("anonymous")==="on",c={id:uid("SAFE"),workerId:anonymous?null:"W-1001",anonymous,category:String(fd.get("category")),description:desc,language:String(fd.get("language")),siteId:currentWorker().siteId,status:"pending",createdAt:isoNow(),notes:[],resolution:"",assignedTo:""};state.complaints.unshift(c);state.lastReportRef=c.id;activity(`Safety report ${c.id} submitted`);save();closeModal();render();showModal("Report submitted",`<div class="text-center py-3"><div class="icon-box !w-14 !h-14 mx-auto mb-4">${icon("check-circle","w-7 h-7")}</div><p class="muted text-sm">Save this reference to track the report.</p><div class="text-2xl font-extrabold my-3">${esc(c.id)}</div><div>${statusPill(c.status)}</div><p class="text-xs muted mt-4">${anonymous?tr("anonymousNote"):"Your report includes your profile in this demo."}</p><button class="secondary mt-4" onclick="GenCopy('${c.id}')">Copy reference</button></div>`);toast("Safety report submitted.");});
+}
+function startSpeech(textareaId){
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SR){toast(tr("voiceUnavailable"));return;}
+ const recognition=new SR();recognition.lang=state.language==="hi"?"hi-IN":state.language==="ta"?"ta-IN":"en-IN";recognition.interimResults=false;recognition.maxAlternatives=1;
+ toast("Listening… please speak clearly.");
+ recognition.onresult=e=>{const el=document.getElementById(textareaId);if(el)el.value+=(el.value?" ":"")+e.results[0][0].transcript;};
+ recognition.onerror=()=>toast("Speech input failed. You can type your report instead.");recognition.start();
+}
+function GenCopy(text){if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(()=>toast("Copied reference.")).catch(()=>toast(`Reference: ${text}`));else toast(`Reference: ${text}`);}
+function openComplaint(id){
+ const c=state.complaints.find(x=>x.id===id);if(!c)return;
+ const reporter=c.anonymous?"Anonymous worker":worker(c.workerId).name;
+ showModal("Safety report review",`<div class="space-y-4"><div class="flex flex-wrap justify-between gap-3"><div><div class="text-xs muted">Reference</div><div class="font-extrabold text-lg">${esc(c.id)}</div></div>${statusPill(c.status)}</div><div><div class="text-xs muted">Category · ${esc(siteName(c.siteId))}</div><div class="font-bold mt-1">${esc(c.category)}</div></div><div><div class="text-xs muted">Reporter</div><div class="font-semibold mt-1">${esc(reporter)}</div></div><div><div class="text-xs muted">Description</div><p class="mt-1 safe-text">${esc(c.description)}</p></div><div class="text-xs muted">Submitted ${fmtDate(c.createdAt)}</div>${c.resolution?`<div class="rounded-xl p-3 text-sm" style="background:var(--surface)"><strong>Resolution:</strong> ${esc(c.resolution)}</div>`:""}${state.role==="employer"?`<form id="complaintUpdateForm" class="space-y-3"><div><label for="complaintStatus">Status</label><select class="field" name="status" id="complaintStatus"><option value="pending">Pending</option><option value="reviewing">Under review</option><option value="escalated">Escalated</option><option value="resolved">Resolved</option></select></div><div><label for="assignedTo">Assign to (optional)</label><input class="field" id="assignedTo" name="assignedTo" maxlength="100" value="${esc(c.assignedTo||"")}" placeholder="e.g. Site safety officer"></div><div><label for="internalNote">Internal note (not shown to worker)</label><textarea class="field" name="note" id="internalNote" rows="2" maxlength="1000" placeholder="Internal follow-up note"></textarea></div><div><label for="complaintResolution">Resolution summary (visible to worker)</label><textarea class="field" name="resolution" id="complaintResolution" rows="2" maxlength="1000" placeholder="What action was taken?">${esc(c.resolution||"")}</textarea></div><button class="primary w-full" type="submit">Save report update</button></form>`:""}</div>`);
+ if(state.role==="employer"){
+  const select=document.getElementById("complaintStatus");select.value=c.status;
+  document.getElementById("complaintUpdateForm").addEventListener("submit",e=>{e.preventDefault();const fd=new FormData(e.currentTarget);c.status=String(fd.get("status"));c.assignedTo=String(fd.get("assignedTo")).trim();const note=String(fd.get("note")).trim();if(note)c.notes.push({text:note,createdAt:isoNow()});c.resolution=String(fd.get("resolution")).trim();activity(`Employer updated safety report ${c.id} to ${c.status}`);save();closeModal();render();toast("Safety report updated.");});
+ }
+}
+function renderSafeVoice(){
+ const list=state.complaints.filter(c=>state.role==="employer"||c.workerId==="W-1001"||c.anonymous).slice().sort((a,b)=>b.createdAt.localeCompare(a.createdAt));
+ return `${pageHeader(tr("safevoice"),"Report hazards, track progress, and close the loop.",`<button class="primary" onclick="openReportModal()">${icon("plus","w-4 h-4")} ${tr("newReport")}</button>`)}
+ <div class="rounded-xl p-4 mb-5 flex gap-3 items-start" style="background:var(--peri-light);color:var(--plum)">${icon("shield-check","w-5 h-5 mt-0.5")}<div class="text-sm"><strong>Privacy matters.</strong> ${tr("anonymousNote")} Reports are stored only in this browser demo.</div></div>
+ <section class="card">${cardTitle(state.role==="employer"?"Complaint management":"My reports","Open a report to review its status and any resolution.")}<div class="flex flex-wrap gap-3 mb-4"><input id="complaintSearch" class="field !w-auto flex-1 min-w-[180px]" placeholder="${tr("search")}" oninput="filterComplaints()"><select id="complaintFilter" class="field !w-auto" onchange="filterComplaints()"><option value="all">${tr("allStatus")}</option><option value="pending">Pending</option><option value="reviewing">Under review</option><option value="escalated">Escalated</option><option value="resolved">Resolved</option></select></div><div id="complaintList">${complaintCards(list)}</div></section>`;
+}
+function complaintCards(list){return list.length?`<div class="space-y-3">${list.map(c=>`<button class="w-full text-left border rounded-xl p-4 hover:bg-purple-50/30" style="border-color:var(--border)" onclick="openComplaint('${c.id}')"><div class="flex flex-wrap justify-between gap-3"><div class="min-w-0"><div class="font-bold">${esc(c.category)}</div><div class="text-xs muted mt-1">${esc(c.id)} · ${esc(siteName(c.siteId))} · ${fmtDate(c.createdAt)}</div><p class="text-sm mt-2 line-clamp-2">${esc(c.description)}</p><div class="text-xs muted mt-2">Reporter: ${c.anonymous?"Anonymous":esc(worker(c.workerId).name)}</div></div><div>${statusPill(c.status)}</div></div>${c.resolution?`<div class="text-xs mt-3 p-2 rounded-lg" style="background:var(--surface)"><strong>Resolution:</strong> ${esc(c.resolution)}</div>`:""}</button>`).join("")}</div>`:`<p class="muted text-sm py-6 text-center">${tr("noItems")}</p>`;}
+function filterComplaints(){
+ const search=(document.getElementById("complaintSearch")?.value||"").toLowerCase(),status=document.getElementById("complaintFilter")?.value||"all";
+ const list=state.complaints.filter(c=>(state.role==="employer"||c.workerId==="W-1001"||c.anonymous)&&(status==="all"||c.status===status)&&`${c.id} ${c.category} ${c.description} ${c.anonymous?"anonymous":worker(c.workerId).name}`.toLowerCase().includes(search));
+ document.getElementById("complaintList").innerHTML=complaintCards(list);if(window.lucide)lucide.createIcons();
+}
+function renderShiftGuard(){
+ const alerts=state.alerts.filter(a=>state.role==="employer"||a.workerId==="W-1001");
+ const threshold=Number(state.settings.dailyHoursThreshold);
+ const derived=[];
+ const byWorker={};
+ state.shifts.forEach(s=>{byWorker[s.workerId]??=[];byWorker[s.workerId].push(s)});
+ Object.entries(byWorker).forEach(([id,shifts])=>{const total=shifts.filter(s=>new Date(s.checkIn).toDateString()===new Date().toDateString()).reduce((sum,s)=>sum+hoursForShift(s),0);if(total>=threshold)derived.push({workerId:id,total,reason:`Recorded shifts today total ${total.toFixed(1)} hours, meeting/exceeding the ${threshold}-hour demo threshold.`});});
+ return `${pageHeader(tr("shiftguard"),"Well-being alerts should prompt support and safer scheduling, not punishment.")}
+ <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 grid-cards mb-5">${statCard("Daily-hours threshold",`${threshold} h`,"clock-alert","Configurable in Settings")}${statCard("Open alerts",alerts.filter(a=>a.status==="open").length,"heart-pulse","Saved alerts")}${statCard("Workers with current threshold flag",derived.length,"users","Calculated from today's timestamps")}</div>
+ <section class="card mb-5">${cardTitle("Current alerts","Each alert includes a reason and a possible follow-up.")}${alerts.length?`<div class="space-y-3">${alerts.map(a=>`<div class="border rounded-xl p-4" style="border-color:var(--border)"><div class="flex flex-wrap justify-between gap-3"><div class="font-bold">${esc(worker(a.workerId).name)} · ${esc(a.type)}</div>${statusPill(a.status)}</div><p class="text-sm mt-2">${esc(a.message)}</p>${a.followUp?`<p class="text-sm mt-2"><strong>Follow-up:</strong> ${esc(a.followUp)}</p>`:""}${state.role==="employer"&&a.status==="open"?`<button class="secondary mt-3" onclick="followUpAlert('${a.id}')">Record follow-up</button>`:""}</div>`).join("")}`:`<p class="muted text-sm">${tr("noFatigue")}</p>`}</section>
+ <section class="card">${cardTitle("Live threshold checks","Derived from stored shifts that started today.")}${derived.length?derived.map(d=>`<div class="rounded-xl p-4 mb-3 last:mb-0" style="background:#fff0cf"><div class="font-bold">${esc(worker(d.workerId).name)} · ${d.total.toFixed(1)} hours</div><p class="text-sm mt-1">${esc(d.reason)}</p><p class="text-xs mt-2">Suggested action: ${tr("noRest")}</p></div>`).join(""):`<p class="muted text-sm">No current shift crosses the configured threshold. Sample historic alert remains available for demo review.</p>`}</section>`;
+}
+function followUpAlert(id){
+ const a=state.alerts.find(x=>x.id===id);if(!a)return;
+ showModal("Record a supportive follow-up",`<form id="alertFollowForm" class="space-y-3"><p class="text-sm muted">${esc(a.message)}</p><div><label for="followText">Follow-up note</label><textarea class="field" id="followText" name="text" rows="3" required maxlength="1000" placeholder="e.g. Check rest time and discuss safe shift coverage"></textarea></div><button class="primary w-full" type="submit">Save follow-up</button></form>`);
+ document.getElementById("alertFollowForm").addEventListener("submit",e=>{e.preventDefault();a.followUp=String(new FormData(e.currentTarget).get("text")).trim();a.status="reviewed";activity(`Supportive follow-up recorded for alert ${id}`);save();closeModal();render();toast("Follow-up saved.");});
+}
+function renderSkills(){
+ const w=currentWorker();
+ return `${pageHeader(tr("skills"),"A small skill passport and sample opportunities to support progression.")}
+ <div class="grid grid-cols-1 lg:grid-cols-2 gap-5"><section class="card">${cardTitle(tr("skillPassport"),"Worker-controlled demo profile")}<div class="flex items-center gap-3 mb-5"><div class="brand-mark">${esc(w.name[0])}</div><div><div class="font-extrabold">${esc(w.name)}</div><div class="text-sm muted">${esc(w.role)}</div></div></div><div class="text-sm muted mb-2">Recorded skills</div><div class="flex flex-wrap gap-2">${w.skills.map(s=>`<span class="pill peri">${esc(s)}</span>`).join("")}</div><div class="mt-5"><label for="skillAdd">Add a skill</label><form class="flex gap-2" onsubmit="addSkill(event)"><input id="skillAdd" class="field" maxlength="60" placeholder="e.g. First aid"><button class="primary">Add</button></form></div><p class="text-xs muted mt-4">Skills are sample data stored in this browser.</p></section>
+ <section class="card">${cardTitle(tr("opportunities"),"Sample listings, not live vacancies.")}<div class="space-y-3">${state.vacancies.filter(v=>v.industry===state.industry).map(v=>`<div class="border rounded-xl p-4" style="border-color:var(--border)"><div class="font-bold">${esc(v.title)}</div><div class="text-xs muted mt-1">${esc(v.location)} · ${esc(v.industry)}</div><div class="flex flex-wrap gap-2 mt-3">${v.skills.map(s=>`<span class="pill">${esc(s)}</span>`).join("")}</div><button class="secondary mt-3" onclick="toast('Sample opportunity saved to this demo session.')">Save opportunity</button></div>`).join("")||`<p class="muted text-sm">${tr("noItems")}</p>`}</div></section></div>`;
+}
+function addSkill(e){e.preventDefault();const el=document.getElementById("skillAdd"),s=el.value.trim();if(!s)return;const w=currentWorker();if(!w.skills.includes(s))w.skills.push(s);activity(`Skill added to ${w.name}'s demo passport`);save();render();toast("Skill added.");}
+function renderSettings(){
+ return `${pageHeader(tr("settings"),"Configure demo rules and reset local sample data.")}
+ <div class="grid grid-cols-1 lg:grid-cols-2 gap-5"><section class="card">${cardTitle("Workforce settings","Changes affect calculations and alerts in this browser.")}<form id="settingsForm" class="space-y-4"><div><label for="industry">${tr("industry")}</label><select id="industry" name="industry" class="field"><option value="construction">Construction</option><option value="maintenance">Facility maintenance</option></select><p class="text-xs muted mt-1">${tr("industryHint")}</p></div><div><label for="baseRate">Base hourly rate (₹)</label><input class="field" type="number" min="1" step=".5" name="baseRate" id="baseRate" required></div><div><label for="otMultiplier">Overtime multiplier</label><input class="field" type="number" min="1" max="5" step=".1" name="overtimeMultiplier" id="otMultiplier" required></div><div><label for="threshold">Daily hours fatigue threshold</label><input class="field" type="number" min="1" max="24" step=".5" name="dailyHoursThreshold" id="threshold" required></div><div><label for="siteRadius">Worksite radius (metres)</label><input class="field" type="number" min="10" max="5000" step="10" name="siteRadius" id="siteRadius" required></div><button class="primary" type="submit">${tr("save")}</button></form></section>
+ <section class="card">${cardTitle("Prototype information","Be transparent about the boundaries of this demo.")}<div class="space-y-3 text-sm"><div class="flex gap-3"><div class="icon-box">${icon("database")}</div><div><div class="font-bold">Local browser storage</div><p class="muted mt-1">Data is saved in localStorage on this device and browser. It is not shared across devices or users.</p></div></div><div class="flex gap-3"><div class="icon-box">${icon("map-pin")}</div><div><div class="font-bold">Location permission</div><p class="muted mt-1">GPS requires browser permission and a secure context such as HTTPS or localhost. Simulated states are not real checks.</p></div></div><div class="flex gap-3"><div class="icon-box">${icon("shield-alert")}</div><div><div class="font-bold">Privacy limits</div><p class="muted mt-1">This is not a secure anonymous reporting service. Do not use real sensitive reports.</p></div></div><div class="flex gap-3"><div class="icon-box">${icon("qr-code")}</div><div><div class="font-bold">QR and opportunities</div><p class="muted mt-1">QR validation and job listings are simulated demo features.</p></div></div></div><div class="border-t mt-5 pt-5" style="border-color:var(--border)"><button class="w-full rounded-xl border border-red-200 text-red-700 p-3 font-bold hover:bg-red-50" onclick="confirmReset()">${icon("trash-2","w-4 h-4 inline mr-2")} ${tr("reset")}</button></div></section></div>`;
+}
+function confirmReset(){showModal("Reset demo data?",`<p class="text-sm muted">${tr("resetConfirm")}</p>`,`<button class="ghost" onclick="closeModal()">${tr("cancel")}</button><button class="primary" onclick="resetData()">Reset data</button>`);}
+function resetData(){state=seedData();save();closeModal();render();toast(tr("resetDone"));}
+function render(){
+ renderNav();
+ const pageTitles={dashboard:state.role==="worker"?tr("workerDash"):tr("employerDash"),attendance:tr("attendance"),fairpay:tr("fairpay"),safevoice:tr("safevoice"),shiftguard:tr("shiftguard"),skills:tr("skills"),settings:tr("settings")};
+ document.getElementById("pageTitle").textContent=pageTitles[state.page]||"FairShift";
+ document.getElementById("crumb").textContent=(state.page==="dashboard"?"DASHBOARD":state.page.toUpperCase());
+ document.getElementById("role").value=state.role;document.getElementById("language").value=state.language;
+ const renderer={dashboard:renderDashboard,attendance:renderAttendance,fairpay:renderFairPay,safevoice:renderSafeVoice,shiftguard:renderShiftGuard,skills:renderSkills,settings:renderSettings};
+ document.getElementById("content").innerHTML=renderer[state.page]?renderer[state.page]():"";
+ if(state.page==="settings"){document.getElementById("industry").value=state.industry;document.getElementById("baseRate").value=state.settings.baseRate;document.getElementById("otMultiplier").value=state.settings.overtimeMultiplier;document.getElementById("threshold").value=state.settings.dailyHoursThreshold;document.getElementById("siteRadius").value=state.settings.siteRadius;document.getElementById("settingsForm").addEventListener("submit",saveSettings);}
+ if(window.lucide)lucide.createIcons();
+}
+function saveSettings(e){
+ e.preventDefault();const fd=new FormData(e.currentTarget),rate=Number(fd.get("baseRate")),multi=Number(fd.get("overtimeMultiplier")),threshold=Number(fd.get("dailyHoursThreshold")),radius=Number(fd.get("siteRadius"));
+ if(rate<=0||multi<1||threshold<=0||threshold>24||radius<10){toast("Please enter valid settings.");return;}
+ state.settings.baseRate=rate;state.settings.overtimeMultiplier=multi;state.settings.dailyHoursThreshold=threshold;state.settings.siteRadius=radius;
+ const nextIndustry=String(fd.get("industry"));if(nextIndustry!==state.industry){state.industry=nextIndustry;state.workers[0].industry=nextIndustry;state.workers[0].siteId=nextIndustry==="construction"?"SITE-A":"SITE-B";}
+ activity("Workforce demo settings updated");save();render();toast(tr("saved"));
+}
+function checkIn(){
+ if(state.shifts.some(s=>s.workerId==="W-1001"&&!s.checkOut)){toast("You already have an active shift.");return;}
+ const s={id:uid("SH"),workerId:"W-1001",siteId:currentWorker().siteId,checkIn:isoNow(),checkOut:null,gpsStatus:state.gps.status==="verified"?"verified":state.gps.status==="outside"?"outside":"not_checked",industry:state.industry};
+ state.shifts.unshift(s);activity("Worker checked in");save();render();toast(tr("checkinDone"));
+}
+function checkOut(){
+ const s=state.shifts.find(x=>x.workerId==="W-1001"&&!x.checkOut);if(!s){toast("No active shift to check out from.");return;}
+ s.checkOut=isoNow();activity("Worker checked out");save();render();toast(tr("checkoutDone"));
+}
+function haversine(lat1,lon1,lat2,lon2){const R=6371000,toRad=d=>d*Math.PI/180,dLat=toRad(lat2-lat1),dLon=toRad(lon2-lon1),a=Math.sin(dLat/2)**2+Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;return 2*R*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));}
+function checkGPS(){
+ if(!navigator.geolocation){state.gps={status:"denied",message:"Geolocation is not supported by this browser.",distance:null,accuracy:null};save();render();toast(state.gps.message);return;}
+ state.gps.message=tr("gpsWait");render();
+ navigator.geolocation.getCurrentPosition(pos=>{
+  const {latitude,longitude,accuracy}=pos.coords,site=state.sites.find(s=>s.id===currentWorker().siteId)||state.sites[0],distance=haversine(latitude,longitude,site.lat,site.lon),radius=Number(state.settings.siteRadius);
+  let status="verified",message=tr("gpsVerified");
+  if(accuracy>Number(state.settings.maxGpsAccuracy)){status="low_accuracy";message=tr("gpsAccuracy");}
+  else if(distance>radius){status="outside";message=tr("gpsOutside");}
+  state.gps={status,message,distance,accuracy,checkedAt:isoNow()};save();render();toast(message);
+ },err=>{const msg=err.code===1?"Location permission denied.":err.code===2?"Location unavailable.":"Location request timed out.";state.gps={status:"denied",message:msg,distance:null,accuracy:null,checkedAt:isoNow()};save();render();toast(msg);},{enableHighAccuracy:true,timeout:10000,maximumAge:0});
+}
+function simulateGPS(status){
+ const map={verified:{message:tr("gpsVerified"),distance:50,accuracy:15},outside:{message:tr("gpsOutside"),distance:500,accuracy:20},low_accuracy:{message:tr("gpsAccuracy"),distance:70,accuracy:250},denied:{message:tr("gpsDenied"),distance:null,accuracy:null}};
+ state.gps={status,...map[status],simulated:true,checkedAt:isoNow()};save();render();toast("Simulated GPS state: "+status.replace("_"," "));
+}
+function simulateQR(){showModal("QR check-in simulation",`<div class="text-center py-4"><div class="icon-box !w-16 !h-16 mx-auto mb-4">${icon("qr-code","w-8 h-8")}</div><div class="font-bold">Demo QR accepted</div><p class="muted text-sm mt-2">This is a simulation only. No real QR code was scanned or validated.</p></div>`,`<button class="ghost" onclick="closeModal()">Close</button><button class="primary" onclick="closeModal();checkIn()">Continue to check in</button>`);}
+function tickTimer(){
+ // Keep the visible duration fresh while a worker is on shift.
+ if(state.page==="dashboard"&&state.role==="worker"){
+  const el=document.querySelector("[data-live-hours]");if(el)el.textContent=fmtHours(hoursForShift(el.dataset.liveHours));
+ }
+}
+function init(){
+ render();
+ // Bind the settings form after rendering and refresh the visible shift timer periodically.
+ setInterval(()=>{const active=state.shifts.find(s=>s.workerId==="W-1001"&&!s.checkOut);const timer=document.getElementById("liveTimer");if(timer&&active)timer.textContent=fmtHours(hoursForShift(active));},30000);
+}
+init();
+</script>
+</body>
+</html>
